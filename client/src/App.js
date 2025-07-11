@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// ✅ Make sure this import is here:
+import Navbar from "./components/Navbar";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
-  const [message, setMessage] = useState("Loading...");
-
-  useEffect(() => {
-    fetch("http://localhost:5000")
-      .then((res) => res.text())
-      .then((data) => setMessage(data))
-      .catch((err) => {
-        console.error("Failed to fetch:", err);
-        setMessage("Error connecting to backend.");
-      });
-  }, []);
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200">
-      <h1 className="text-4xl font-bold text-blue-800 mb-4">DevJobHub 💼</h1>
-      <p className="text-lg text-gray-700">{message}</p>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-blue-50">
+        {/* ✅ Render Navbar here */}
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
 export default App;
+
 
